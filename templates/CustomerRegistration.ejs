@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    
+        .styled-div {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+    
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+    
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="styled-div">  
+
+        <h2>Customer Registration</h2>
+
+    <label for="FirstName">First name:</label>
+    <input type="text" id="FirstName" name="FirstName" required><br><br>
+    <label for="LastName">Last name:</label>
+    <input type="text" id="LastName" name="LastName" required><br><br>
+    <label for="Email">Email:</label>
+    <input type="text" id="Email" name="Email" required><br><br>
+    <label for="Password">Password:</label>
+    <input type="text" id="Password" name="Password" required><br><br>
+    <input type="submit" id="callApiButton">
+
+    </div>
+
+    <script>
+
+        document.getElementById("callApiButton").addEventListener("click", async function () {
+
+            var inputValue1 = document.getElementById("FirstName").value;
+            var inputValue2 = document.getElementById("LastName").value;
+            var inputValue3 = document.getElementById("Email").value;
+            var inputValue4 = document.getElementById("Password").value;
+
+            var data = {
+                FirstName: inputValue1,
+                LastName: inputValue2,
+                Email: inputValue3,
+                Password: inputValue4,
+            };
+
+            const url = 'CustomerRegistration';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == "Otp Send") {
+                        alert("Send Otp");
+                        window.location.href = "/Otp";
+                    } else {
+                        alert(data.message);
+                        window.location.href = "/CustomerRegistration";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+
+        })
+
+    </script>
+
+</body>
+
+</html>

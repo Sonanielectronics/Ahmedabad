@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    
+        .styled-div {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+    
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+    
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="styled-div">  
+
+        <h2>Email Verification</h2>
+
+        <label for="Password">Otp:</label>
+        <input type="text" id="Otp" name="Otp" required><br><br>
+        <input type="submit" id="callApiButton">
+
+    </div>
+
+        <script>
+
+            document.getElementById("callApiButton").addEventListener("click", async function () {
+
+                var inputValue1 = '<%= a.FirstName %>';
+                var inputValue2 = '<%= a.LastName %>';
+                var inputValue3 = '<%= a.Email %>';
+                var inputValue4 = '<%= a.Password %>';
+                var inputValue5 = '<%= a.Role %>';
+                var inputValue6 = '<%= a.otp %>';
+                var inputValue7 = document.getElementById("Otp").value;
+
+                var data = {
+                    FirstName: inputValue1,
+                    LastName: inputValue2,
+                    Email: inputValue3,
+                    Password: inputValue4,
+                    Role: inputValue5,
+                    otp: inputValue6,
+                    Bodyotp: inputValue7
+                };
+    
+                const url = 'Otp';
+    
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message == "Account Create Successfully") {
+                            alert("Create Account");
+                            window.location.href = "/Login";
+                        } else {
+                            alert(data.message);
+                            window.location.href = "/Otp";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+    
+    
+            })
+    
+        </script>
+
+</body>
+</html>

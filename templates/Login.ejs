@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .styled-div {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
+<body>
+    
+    <div class="styled-div">   
+
+        <h1>Login</h1>
+
+        <label for="Email">Email:</label>
+        <input type="text" id="Email" name="Email" required><br><br>
+        <label for="Password">Password:</label>
+        <input type="text" id="Password" name="Password" required><br><br>
+        <input type="submit" id="callApiButton">
+    </div>
+
+        <script>
+
+            document.getElementById("callApiButton").addEventListener("click", async function () {
+    
+                var inputValue1 = document.getElementById("Email").value;
+                var inputValue2 = document.getElementById("Password").value;
+    
+                var data = {
+                    Email: inputValue1,
+                    Password: inputValue2,
+                };
+    
+                const url = 'Login';
+    
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        if (data.message == "Data Load Successfully") {
+                            window.location.href = "/DashBoard";
+                        } else {
+                            alert(data.message);
+                            window.location.href = "/Login";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+    
+    
+            })
+    
+        </script>
+
+</body>
+</html>
